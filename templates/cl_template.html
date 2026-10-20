@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  
+  :root {
+    --primary-color: #0D1B2A;
+    --accent-color: #00B4D8;
+    --text-main: #1B2838;
+    --text-muted: #5A6B7D;
+    --bg-color: #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    font-size: 11pt;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  header {
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    font-size: 32pt;
+    font-weight: 700;
+    margin: 0;
+    color: var(--primary-color);
+    letter-spacing: -1px;
+  }
+
+  .title {
+    font-size: 14pt;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin: 5px 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .contact-info {
+    font-size: 10pt;
+    color: var(--text-muted);
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-weight: 500;
+  }
+
+  .letter-content {
+    margin-top: 30px;
+  }
+
+  .letter-content p {
+    margin-bottom: 18px;
+  }
+
+  .recipient-info {
+    margin-bottom: 30px;
+  }
+
+  .recipient-info p {
+    margin: 2px 0;
+    font-weight: 500;
+  }
+  
+  .subject-line {
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+  }
+
+  .signature {
+    margin-top: 40px;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 12pt;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>{FULL_NAME}</h1>
+    <div class="title">{TARGET_JOB_TITLE_OR_SIMILAR}</div>
+    <div class="contact-info">
+      <span>📍 {LOCATION}</span>
+      <span>📱 {PHONE}</span>
+      <span>✉️ {EMAIL}</span>
+      <span>🔗 {LINKEDIN_URL}</span>
+    </div>
+  </header>
+
+  <div class="letter-content">
+    <div class="recipient-info">
+      <p>Hiring Team</p>
+      <p>{COMPANY_NAME}</p>
+      <p>{COMPANY_LOCATION}</p>
+    </div>
+
+    <div class="subject-line">
+      Subject: Application for {TARGET_JOB_TITLE}
+    </div>
+
+    <p>Dear Hiring Team,</p>
+
+    <p>{PARAGRAPH_1: Hook and enthusiasm for the company/role.}</p>
+
+    <p>{PARAGRAPH_2: Highlighting relevant experience 1 mapped to JD requirements.}</p>
+
+    <p>{PARAGRAPH_3: Highlighting relevant experience 2 mapped to JD requirements.}</p>
+
+    <p>{PARAGRAPH_4: Why the candidate is a cultural/strategic fit.}</p>
+
+    <p>{PARAGRAPH_5: Closing and call to action.}</p>
+
+    <div class="signature">
+      {FULL_NAME}
+    </div>
+  </div>
+</div>
+</body>
+</html>

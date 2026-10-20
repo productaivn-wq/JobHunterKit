@@ -1,0 +1,44 @@
+{
+  "description": "Personal job preferences configuration for JobHunterKit. Specifies preferred job titles, locations (places), and sources (channels).",
+  "job_titles": [
+    "Product Manager",
+    "AI Product Manager",
+    "AI Product Director",
+    "Fullstack Developer"
+  ],
+  "places": [
+    "Hanoi",
+    "Ho Chi Minh",
+    "Vietnam",
+    "Remote"
+  ],
+  "channels": [
+    "linkedin",
+    "linkedin-recommended",
+    "itviec",
+    "topcv",
+    "vietnamworks"
+  ],
+  "preferences": [
+    {
+      "job_title": "Product Manager",
+      "places": ["Ho Chi Minh", "Hanoi", "Vietnam"],
+      "channels": ["linkedin", "linkedin-recommended", "linkedin-easy-apply", "linkedin-remote-jobs", "itviec", "topcv", "vietnamworks"]
+    },
+    {
+      "job_title": "AI Product Manager",
+      "places": ["Ho Chi Minh", "Hanoi", "Vietnam"],
+      "channels": ["linkedin", "linkedin-recommended", "linkedin-easy-apply", "linkedin-remote-jobs", "itviec", "topcv", "vietnamworks"]
+    },
+    {
+      "job_title": "AI Product Director",
+      "places": ["Ho Chi Minh", "Hanoi", "Vietnam"],
+      "channels": ["linkedin", "linkedin-recommended", "linkedin-easy-apply", "linkedin-remote-jobs", "itviec", "topcv", "vietnamworks"]
+    },
+    {
+      "job_title": "Fullstack Developer",
+      "places": ["Remote"],
+      "channels": ["linkedin", "linkedin-easy-apply", "linkedin-remote-jobs", "itviec"]
+    }
+  ]
+}

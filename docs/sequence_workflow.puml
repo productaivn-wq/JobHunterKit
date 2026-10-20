@@ -1,0 +1,125 @@
+@startuml
+skinparam handwritten false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam RoundCorner 8
+skinparam BoxPadding 10
+skinparam ParticipantPadding 10
+
+' Premium Color Palette
+skinparam actor {
+  BackgroundColor #EBF8FF
+  BorderColor #3182CE
+}
+skinparam participant {
+  BackgroundColor #F4F6F9
+  BorderColor #2D3748
+}
+skinparam database {
+  BackgroundColor #E6FFFA
+  BorderColor #319795
+}
+skinparam collections {
+  BackgroundColor #FAF5FF
+  BorderColor #805AD5
+}
+
+actor User
+participant "Orchestrator\n(pipeline.py)" as Pipeline
+participant "Scraper\n(linkedin.py / etc.)" as Scraper
+participant "Evaluator\n(score_jd.py)" as Score
+participant "Tailoring Engine\n(tailor_jd.py)" as Tailor
+participant "Browser Agent\n(Playwright / Chrome)" as Browser
+database "Gemini API" as Gemini
+database "Local Storage\n(JSON / PDF)" as Storage
+
+== Phase 1: Onboarding ==
+User -> Pipeline: Run setup_profile.py --cv <base_cv.pdf>
+Pipeline -> Gemini: Parse CV text & extract details
+Gemini --> Pipeline: Extracted Profile JSON
+Pipeline -> User: Prompt for missing fields (expected salary, etc.)
+User --> Pipeline: Missing information provided
+Pipeline -> Storage: Save config/applicant_profile.json
+
+== Phase 2: Search & Scrape ==
+User -> Pipeline: Run pipeline.py (keyword, location, source)
+Pipeline -> Storage: Load applicant_profile.json & state.json (cookies)
+Pipeline -> Scraper: Start scrape job listings
+Scraper -> Browser: Navigate search pages stealthily
+Browser --> Scraper: Raw HTML / Job Card elements
+Scraper -> Scraper: Extract details (Title, Company, URL, JD Text)
+Scraper -> Pipeline: Scraped jobs list
+Pipeline -> Storage: Save data/scraped_jobs.json
+
+== Phase 3: Evaluate & Score ==
+Pipeline -> Score: Evaluate jobs list against CV
+loop For each job
+  Score -> Storage: Check applied_history.json
+  alt Not applied yet
+    alt Dynamic Rubric enabled
+      Score -> Gemini: Generate customized rubric for JD
+      Gemini --> Score: Rubric JSON
+    else Static Rubric
+      Score -> Score: Load default rubric
+    end
+    Score -> Gemini: Score JD against CV & Rubric
+    Gemini --> Score: Match score (0-100) & reasoning JSON
+    Score -> Storage: Save [company]_[id]_score.json
+    alt score >= pass_threshold
+      Pipeline -> Tailor: Trigger Tailoring
+      
+      == Phase 4: Resume Tailoring ==
+      Tailor -> Gemini: Align CV bullet points with JD keywords
+      Gemini --> Tailor: Tailored HTML CV content
+      Tailor -> Storage: Compile and save PDF to tailored/ folder
+      
+      == Phase 5: Auto-Apply & Smart Screening ==
+      Pipeline -> Browser: Trigger application for Job
+      Browser -> Browser: Navigate to job URL
+      alt Easy Apply (Internal)
+        loop Fill form steps
+          Browser -> Browser: Auto-fill standard fields
+          alt Screening question encountered
+            alt Answer cached in learned_answers
+              Browser -> Browser: Fill with cached answer
+            else Not cached
+              Pipeline -> Gemini: Resolve screening question from CV/Profile
+              Gemini --> Pipeline: Confident Answer
+              alt Confident
+                Pipeline -> Browser: Fill answer
+                Pipeline -> Storage: Save to learned_answers in applicant_profile.json
+              else Unconfident / Uncertain
+                Pipeline -> User: Prompt user in terminal
+                User --> Pipeline: User answer verification
+                Pipeline -> Browser: Fill verified answer
+                Pipeline -> Storage: Save to learned_answers in applicant_profile.json
+              end
+            alt Submission
+              Browser -> Browser: Click Submit
+            end
+          end
+        end
+      else External Apply (Redirect)
+        alt Dry-Run Mode
+          Browser -> Browser: Click redirect & wait 5s
+          Browser -> Storage: Take screenshot in proof/ folder
+        else Dynamic Visual Agent Mode
+          loop up to 15 steps
+            Browser -> Storage: Capture viewport screenshot
+            Pipeline -> Gemini: Send screenshot + DOM details
+            Gemini --> Pipeline: Next Action (click, type, upload, done, fail)
+            Pipeline -> Browser: Execute action
+          end
+        end
+      end
+      Pipeline -> Storage: Update applied_history.json with Applied state
+    else score < pass_threshold
+      Pipeline -> Storage: Update applied_history.json with Rejected state
+    end
+  end
+end
+
+== Phase 6: Reporting ==
+Pipeline -> Storage: Generate report.md and append to master_report.md
+Pipeline --> User: Show Execution Summary
+@endum

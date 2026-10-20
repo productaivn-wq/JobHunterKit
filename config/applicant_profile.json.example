@@ -1,0 +1,90 @@
+{
+  "_description": "Applicant profile for auto-filling LinkedIn Easy Apply forms. Edit values to match your real information.",
+  "personal": {
+    "full_name": "Jane Doe",
+    "phone": "+15551234567",
+    "email": "jane.doe@example.com",
+    "city": "San Francisco",
+    "country": "United States",
+    "linkedin": "https://www.linkedin.com/in/jane-doe/"
+  },
+  "salary": {
+    "current_usd": 3000,
+    "current_vnd": 75000000,
+    "expected_usd": 4000,
+    "expected_vnd": 100000000,
+    "_note": "Gross monthly. VND calculated at ~25,000 VND/USD."
+  },
+  "experience_years": {
+    "total": 5,
+    "product_management": 5,
+    "ai_ml": 2,
+    "ux": 3,
+    "data_analysis": 3,
+    "agile_scrum": 4,
+    "crm": 3,
+    "saas": 4,
+    "leadership": 3,
+    "project_management": 5,
+    "software_development": 2,
+    "marketing": 1,
+    "sales": 1,
+    "devops": 1,
+    "cloud": 1,
+    "no_code": 3,
+    "prompt_engineering": 1,
+    "llm": 1,
+    "stakeholder_management": 3,
+    "people_management": 2,
+    "remote_work": 2,
+    "_default": 2,
+    "_note": "Approximate years. _default is used when no keyword matches."
+  },
+  "education": {
+    "highest_degree": "Bachelor",
+    "field": "Business Administration"
+  },
+  "work_authorization": {
+    "authorized_to_work": true,
+    "require_sponsorship": false,
+    "notice_period_days": 30
+  },
+  "languages": {
+    "english": "Professional",
+    "spanish": "Conversational"
+  },
+  "preferences": {
+    "willing_to_relocate": false,
+    "work_type": [
+      "Hybrid",
+      "Remote"
+    ],
+    "start_availability": "Immediately",
+    "campaigns": [
+      {
+        "job_title": "Product Manager",
+        "places": ["Ho Chi Minh", "Hanoi", "Vietnam"],
+        "channels": ["linkedin", "itviec", "topcv", "vietnamworks"]
+      },
+      {
+        "job_title": "AI Product Manager",
+        "places": ["Ho Chi Minh", "Hanoi", "Vietnam"],
+        "channels": ["linkedin", "linkedin-recommended", "itviec"]
+      },
+      {
+        "job_title": "AI Product Director",
+        "places": ["Ho Chi Minh", "Hanoi", "Vietnam"],
+        "channels": ["linkedin", "linkedin-recommended", "itviec"]
+      },
+      {
+        "job_title": "Fullstack Developer",
+        "places": ["Remote"],
+        "channels": ["linkedin", "itviec"]
+      }
+    ]
+  },
+  "learned_answers": {
+    "search by title skill or company": "Product Manager, AI Consultant, SaaS Product Manager",
+    "how many years of experience do you currently have": "5"
+  }
+}

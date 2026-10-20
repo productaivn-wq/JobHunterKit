@@ -1,0 +1,84 @@
+# Python compilation and caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local/Runtime logs, debug files, and telemetry
+*.log
+qg_out*.txt
+qg_temp*.txt
+QG_LATEST.txt
+scratch/
+.utop_cache.json
+
+# IDE Settings and OS-specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environments and Secrets
+.env
+*.env
+config/credentials*
+config/*private*
+scripts/state.json
+state.json
+
+# Dynamic local prompts (Proprietary prompt recipes)
+config/prompts/
+
+# Candidate personal profile data (PII)
+config/applicant_profile.json
+config/applicant_profile.json.bak
+
+# BDD Features and Test Data (to prevent reverse-engineering of product specifications)
+tests/
+
+
+# GitSyncManager Auto-Exclusions
+docs/UC-*
+docs/traceability_matrix.md
+docs/function_rules.md
+SKILL.md
+
+# IPC operational artifacts: one-off debug scripts, DOM dump HTML files, and runtime JSON files.
+# These are session-level debugging artefacts generated during application runs, not source code.
+# Live IPC components (auto_responder.py, smart_auto_responder.py, ipc_watcher.py) ARE committed.
+ipc/check_*.py
+ipc/write_*.py
+ipc/search_dom.py
+ipc/generate_response.py
+ipc/*.html
+ipc/response_*.json
+ipc/daemon_heartbeat.json
+
+# IPC sandbox runtime directory (request/response exchange with browser)
+ipc_sandbox/
+
+# Campaign output data (scraped jobs, tailored CVs, score files — large, run-specific)
+data/
+
+# Stale temp files from testing
+careerjet_card.html
+careerjet_test.json
+itv_test.json
+vw_test.json
+chrome_log.txt
+stdout.log
+stderr.log
+start_out.log
+start_err.log
+ipc_daemon.log
+ipc_daemon_err.log
+pytest_collect.log
+test_run.log
+render_out.txt
+real_urls.json
+temp_*
+scan.json
+*.tmp

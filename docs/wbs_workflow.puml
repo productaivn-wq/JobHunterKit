@@ -1,0 +1,37 @@
+@startwbs
+skinparam monochrome true
+skinparam DefaultFontName "Arial"
+skinparam DefaultFontSize 12
+
+* JobHunterKit Traceability Ecosystem (UTOP)
+** UC-001: Onboard Applicant Profile
+*** Component: setup_profile.py
+**** Functions: extract_cv_text, extract_profile_from_cv, build_profile_interactive
+**** Requirements: FR-001, FR-002, FR-003
+**** BDD Scenarios: G01 (Auto CV Parsing), G02 (Interactive Prompts), G03 (Invalid CV Format)
+**** Test Data: TC-UC-001_data.json
+** UC-002: Search and Extract Job Listings
+*** Component: login_linkedin.py, pipeline.py
+**** Functions: live_linkedin_scrape, login_linkedin.main
+**** Requirements: FR-004, FR-005, FR-006, NFR-005
+**** BDD Scenarios: G01 (Job board search), G02 (Playwright Stealth), G03 (Manual Login State)
+**** Test Data: TC-UC-002_data.json
+** UC-003: Evaluate Job Fit
+*** Component: score_jd.py, pipeline.py
+**** Functions: load_rubric, score_job_description, evaluate_jobs, rescore_only
+**** Requirements: FR-007, FR-008, FR-009, NFR-001
+**** BDD Scenarios: G01 (LLM scoring), G02 (Malformed JSON recovery), G03 (Batch scoring orchestration)
+**** Test Data: TC-UC-003_data.json
+** UC-004: Tailor Resumes
+*** Component: tailor_jd.py, pipeline.py
+**** Functions: extract_text, generate_tailored_html, tailor_cvs
+**** Requirements: FR-010, FR-011, FR-012, NFR-004
+**** BDD Scenarios: G01 (Resume tailoring matching), G02 (Batch resume tailoring)
+**** Test Data: TC-UC-004_data.json
+** UC-005: Apply with Smart Screening
+*** Component: pipeline.py, register_cron.py, test_apply.py
+**** Functions: auto_apply, _resolve_field_value, generate_report
+**** Requirements: FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, NFR-002, NFR-003
+**** BDD Scenarios: G01 (Apply via Chrome), G02 (Screening Resolver), G03 (Continuous Learning), G04 (Terminal Fallback), G05 (Campaign Report), G06 (Daily Cron Register), G07 (Integration Test)
+**** Test Data: TC-UC-005_data.json
+@endwbs

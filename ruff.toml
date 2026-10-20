@@ -1,0 +1,7 @@
+exclude = ["data"]
+
+[lint]
+ignore = ["E402", "E722"]
+
+[lint.mccabe]
+max-complexity = 100

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  
+  :root {
+    --primary-color: #0D1B2A;
+    --accent-color: #00B4D8;
+    --text-main: #1B2838;
+    --text-muted: #5A6B7D;
+    --bg-color: #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    font-size: 10.5pt;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  header {
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 30pt;
+    font-weight: 700;
+    margin: 0;
+    color: var(--primary-color);
+    letter-spacing: -1px;
+  }
+
+  .title {
+    font-size: 15pt;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin: 5px 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .contact-info {
+    font-size: 9.5pt;
+    color: var(--text-muted);
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e0e6ed;
+    padding-bottom: 6px;
+    page-break-after: avoid;
+  }
+
+  .job {
+    margin-bottom: 18px;
+    page-break-inside: avoid;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .job-title {
+    font-weight: 700;
+    font-size: 11.5pt;
+    color: var(--primary-color);
+  }
+
+  .job-company {
+    font-weight: 600;
+    color: var(--accent-color);
+  }
+
+  .job-date {
+    font-size: 9.5pt;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  .summary {
+    background-color: #f0f8ff;
+    padding: 16px;
+    border-left: 4px solid var(--accent-color);
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 20px;
+  }
+
+  .summary p {
+    margin: 0 0 10px 0;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+
+  .skills-list {
+    margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>{FULL_NAME}</h1>
+    <div class="title">{TARGET_JOB_TITLE_OR_SIMILAR}</div>
+    <div class="contact-info">
+      <span>📍 {LOCATION}</span>
+      <span>📱 {PHONE}</span>
+      <span>✉️ {EMAIL}</span>
+      <span>🔗 {LINKEDIN_URL}</span>
+    </div>
+  </header>
+
+  <div class="summary">
+    <p><strong>Personal Statement:</strong> {2_SENTENCE_PUNCHY_SUMMARY}</p>
+  </div>
+
+  <h2>Work Experience</h2>
+  
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <span class="job-title">{JOB_ROLE}</span> | <span class="job-company">{COMPANY}</span>
+      </div>
+      <div class="job-date">{START_DATE} – {END_DATE}</div>
+    </div>
+    <ul>
+      <li><strong>{KEYWORD_1}:</strong> {BULLET_POINT_1}</li>
+      <li><strong>{KEYWORD_2}:</strong> {BULLET_POINT_2}</li>
+    </ul>
+  </div>
+
+  <!-- Repeat .job blocks as necessary -->
+
+  <div style="page-break-inside: avoid;">
+    <h2>Skills & Competencies</h2>
+    <div class="skills-list">
+      <ul>
+        <li><strong>{CATEGORY_1}:</strong> {SKILLS_LIST_1}</li>
+        <li><strong>{CATEGORY_2}:</strong> {SKILLS_LIST_2}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="page-break-inside: avoid;">
+    <h2>Education & Certifications</h2>
+    <ul>
+      <li><strong>{CERT_1}</strong> | {ISSUER_1} ({DATE_1})</li>
+    </ul>
+  </div>
+
+  <div style="page-break-inside: avoid;">
+    <h2>Recognition</h2>
+    <ul>
+      <li><strong>{AWARD_1}</strong> — {EVENT_1}</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

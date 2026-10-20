@@ -1,0 +1,173 @@
+@startuml
+skinparam handwritten false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam RoundCorner 12
+skinparam ActivityBorderThickness 1.5
+skinparam ActivityFontSize 11
+skinparam ActivityDiamondFontSize 11
+skinparam ArrowFontSize 10
+
+' Premium Color Palette (Modern Dark / Slate Tech)
+skinparam activity {
+  BackgroundColor #F4F6F9
+  BorderColor #2D3748
+  FontColor #1A202C
+  
+  BackgroundColor<<Onboarding>> #EBF8FF
+  BorderColor<<Onboarding>> #3182CE
+  
+  BackgroundColor<<Scrape>> #E6FFFA
+  BorderColor<<Scrape>> #319795
+  
+  BackgroundColor<<Evaluate>> #EDF2F7
+  BorderColor<<Evaluate>> #4A5568
+  
+  BackgroundColor<<Tailor>> #FEFCBF
+  BorderColor<<Tailor>> #D69E2E
+  
+  BackgroundColor<<Apply>> #FEEBC8
+  BorderColor<<Apply>> #DD6B20
+}
+
+skinparam arrow {
+  Color #718096
+  Thickness 1.2
+}
+
+skinparam partition {
+  BorderColor #CBD5E0
+  BackgroundColor #FAF5FF
+}
+
+|Operator / User|
+start
+:Run setup_profile.py; <<Onboarding>>
+:Provide Base CV (PDF/TXT); <<Onboarding>>
+
+|AI Agent (Gemini API)|
+:Parse CV & extract profile data; <<Onboarding>>
+
+|Operator / User|
+:Confirm profile & answer missing fields
+(e.g., target roles, expected salary); <<Onboarding>>
+:Generate config/applicant_profile.json; <<Onboarding>>
+
+|Orchestrator (pipeline.py)|
+:Run pipeline.py with options
+(keywords, location, source);
+:Load Playwright Session State (state.json);
+:Initiate Scraper Worker;
+
+|Automated Browser (Playwright/Stealth)|
+:Navigate to Job Board (e.g. LinkedIn); <<Scrape>>
+:Stealthily extract matching Job Listings; <<Scrape>>
+
+|Orchestrator (pipeline.py)|
+:Filter blacklisted companies & duplicates; <<Scrape>>
+:Save results to scraped_jobs.json; <<Scrape>>
+
+partition "Evaluation & Scoring Loop" {
+  |Orchestrator (pipeline.py)|
+  while (For each scraped job?) is (yes)
+    :Check applied_history.json; <<Evaluate>>
+    if (Already applied?) then (yes)
+      :Skip job; <<Evaluate>>
+    else (no)
+      if (Use dynamic rubric?) then (yes)
+        |AI Agent (Gemini API)|
+        :Generate custom scoring rubric tailored to JD; <<Evaluate>>
+      else (no)
+        |Orchestrator (pipeline.py)|
+        :Load static scoring rubric; <<Evaluate>>
+      endif
+      
+      |AI Agent (Gemini API)|
+      :Evaluate JD against applicant profile; <<Evaluate>>
+      :Calculate match_score (0-100) & reasoning; <<Evaluate>>
+      
+      |Orchestrator (pipeline.py)|
+      :Save score to [company]_[id]_score.json; <<Evaluate>>
+      if (score >= pass_threshold?) then (yes)
+        :Queue job for tailoring & apply; <<Evaluate>>
+      else (no)
+        :Mark as rejected; <<Evaluate>>
+      endif
+    endif
+  endwhile (no)
+}
+
+partition "Resume Tailoring Phase" {
+  |Orchestrator (pipeline.py)|
+  :Initiate tailor_jd.py for queued jobs; <<Tailor>>
+  
+  |AI Agent (Gemini API)|
+  :Align resume content & keywords with JD; <<Tailor>>
+  :Generate tailored HTML CV; <<Tailor>>
+  
+  |Orchestrator (pipeline.py)|
+  :Render tailored HTML to PDF
+  (stored in campaign tailored folder); <<Tailor>>
+}
+
+partition "Application & screening Phase" {
+  |Automated Browser (Playwright/Stealth)|
+  :Navigate to job application page; <<Apply>>
+  
+  if (Application type?) then (Easy Apply / Internal)
+    repeat
+      :Auto-fill standard fields using applicant_profile.json; <<Apply>>
+      if (Screening question encountered?) then (yes)
+        if (Answer in learned_answers?) then (yes)
+          :Fill with learned answer; <<Apply>>
+        else (no)
+          |AI Agent (Gemini API)|
+          :Generate screening answer using CV/profile context; <<Apply>>
+          
+          |Automated Browser (Playwright/Stealth)|
+          if (Gemini answer confident?) then (yes)
+            :Fill answer; <<Apply>>
+            :Save to learned_answers in applicant_profile.json; <<Apply>>
+          else (no)
+            |Operator / User|
+            :Fallback to terminal interactive prompt; <<Apply>>
+            :User inputs/verifies answer; <<Apply>>
+            
+            |Automated Browser (Playwright/Stealth)|
+            :Fill verified answer; <<Apply>>
+            :Save to learned_answers in applicant_profile.json; <<Apply>>
+          endif
+        endif
+      endif
+    repeat while (More pages / Next button?) is (yes)
+    
+  else (External Apply / Redirect)
+    if (Dry-Run Mode?) then (yes)
+      :Click redirect link & wait 5 seconds; <<Apply>>
+      :Capture proof screenshot; <<Apply>>
+      :Skip submission; <<Apply>>
+    else (Dynamic Visual Agent Mode)
+      repeat
+        :Capture browser viewport screenshot; <<Apply>>
+        :Extract DOM interactive elements; <<Apply>>
+        
+        |AI Agent (Gemini API)|
+        :Analyze screenshot & DOM context; <<Apply>>
+        :Decide next action (click, type, upload, done, fail); <<Apply>>
+        
+        |Automated Browser (Playwright/Stealth)|
+        :Execute selected action; <<Apply>>
+      repeat while (Application submitted or failed?) is (no)
+    endif
+  endif
+  
+  |Orchestrator (pipeline.py)|
+  :Update applied_history.json; <<Apply>>
+  :Save proof screenshots in campaign proof folder; <<Apply>>
+}
+
+|Orchestrator (pipeline.py)|
+:Generate campaign report.md;
+:Append run summary to master_report.md;
+stop
+@endum

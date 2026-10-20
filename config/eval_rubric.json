@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "description": "Scoring rubric for Product Manager roles. Edit weights and descriptions to tune scoring without touching code. All weight_percent values across all criteria must sum to 100.",
+  "pass_threshold": 70,
+  "categories": [
+    {
+      "id": "technical_core",
+      "name": "Technical & Product Core",
+      "weight_percent": 30,
+      "criteria": [
+        {
+          "id": "ai_ml_depth",
+          "name": "AI/ML Technical Depth",
+          "weight_percent": 10,
+          "description": "Deep understanding of LLMs, RAG, agents, NLP, and data pipelines as explicitly requested by the JD."
+        },
+        {
+          "id": "product_lifecycle",
+          "name": "Product Lifecycle & Agile",
+          "weight_percent": 10,
+          "description": "Experience with roadmapping, sprint planning, user stories, A/B testing, and agile frameworks."
+        },
+        {
+          "id": "enterprise_architecture",
+          "name": "Enterprise/SaaS Architecture",
+          "weight_percent": 10,
+          "description": "Experience with scalable software, API integrations, cloud infrastructure, and B2B platforms."
+        }
+      ]
+    },
+    {
+      "id": "experience_domain",
+      "name": "Experience & Domain Fit",
+      "weight_percent": 50,
+      "criteria": [
+        {
+          "id": "seniority_role_fit",
+          "name": "Seniority & Target Role Match",
+          "weight_percent": 40,
+          "description": "Candidate is targeting AI Director or AI Manager in Product roles. Deduct maximum points (score 0 for this criterion) if the JD is for a Product Owner (PO), Junior PM, or individual contributor mid-level role, even if the candidate has the skills."
+        },
+        {
+          "id": "industry_fit",
+          "name": "Industry / Domain Fit",
+          "weight_percent": 5,
+          "description": "Matches the specific industry or domain requested by the JD (e.g., Healthcare, FinTech, E-commerce, Biotech)."
+        },
+        {
+          "id": "education_certifications",
+          "name": "Education & Certifications",
+          "weight_percent": 5,
+          "description": "Possesses relevant degrees (e.g., CS, Business) and certifications (e.g., CSPO, PMP) requested by the JD."
+        }
+      ]
+    },
+    {
+      "id": "leadership_impact",
+      "name": "Leadership & Business Impact",
+      "weight_percent": 10,
+      "criteria": [
+        {
+          "id": "cross_functional",
+          "name": "Cross-functional Leadership",
+          "weight_percent": 5,
+          "description": "Leading engineering, design, and data science teams, specifically in 0-to-1 environments without direct authority."
+        },
+        {
+          "id": "commercial_impact",
+          "name": "Commercial Impact",
+          "weight_percent": 5,
+          "description": "Proven ROI, user retention metrics, revenue growth, and Go-To-Market strategy formulation."
+        }
+      ]
+    },
+    {
+      "id": "soft_skills",
+      "name": "Soft Skills & Communication",
+      "weight_percent": 10,
+      "criteria": [
+        {
+          "id": "stakeholder_management",
+          "name": "Stakeholder Management",
+          "weight_percent": 5,
+          "description": "Executive communication, client-facing experience, and driving cross-team alignment."
+        },
+        {
+          "id": "problem_solving",
+          "name": "Problem Solving & Ambiguity",
+          "weight_percent": 5,
+          "description": "Demonstrated ability to navigate ambiguous requirements and define complex systems."
+        }
+      ]
+    }
+  ]
+}

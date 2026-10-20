@@ -1,0 +1,70 @@
+{
+  "description": "Personal job preferences configuration for JobHunterKit - Product Manager.",
+  "job_titles": [
+    "Product Manager"
+  ],
+  "places": [
+    "Hanoi",
+    "Ho Chi Minh",
+    "Vietnam",
+    "Singapore",
+    "Malaysia",
+    "Thailand",
+    "Indonesia",
+    "Philippines",
+    "Southeast Asia",
+    "Remote"
+  ],
+  "channels": [
+    "linkedin",
+    "linkedin-recommended",
+    "linkedin-easy-apply",
+    "linkedin-remote-jobs",
+    "itviec",
+    "topcv",
+    "vietnamworks",
+    "indeed",
+    "careerjet",
+    "glints"
+  ],
+  "preferences": [
+    {
+      "job_title": "Product Manager",
+      "places": [
+        "Ho Chi Minh",
+        "Hanoi",
+        "Vietnam"
+      ],
+      "channels": [
+        "linkedin",
+        "linkedin-recommended",
+        "linkedin-easy-apply",
+        "linkedin-remote-jobs",
+        "itviec",
+        "topcv",
+        "vietnamworks",
+        "indeed",
+        "careerjet",
+        "glints"
+      ]
+    },
+    {
+      "job_title": "Product Manager",
+      "places": [
+        "Singapore",
+        "Malaysia",
+        "Thailand",
+        "Indonesia",
+        "Philippines",
+        "Southeast Asia",
+        "Remote"
+      ],
+      "channels": [
+        "linkedin",
+        "linkedin-recommended",
+        "linkedin-easy-apply",
+        "linkedin-remote-jobs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+# JobHunterKit Local Rules Configuration
+# ─────────────────────────────────────────────────────────────────────────────
+# Local rules strictly bound to the c:/Users/user/.gemini/antigravity/skills/JobHunterKit/ workspace.
+# Merges with global_rules.yaml. Local parameters take priority.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  scope: "local"
+  skill: "JobHunterKit"
+
+rules:
+  # Local scraping parameters
+  scraping:
+    target_domains:
+      - "linkedin.com"
+      - "vietnamworks.com"
+      - "topcv.vn"
+    playwright_headless: true          # Run playwright browser in headless mode
+    viewport:
+      width: 1280
+      height: 720
+
+  # Output pathways
+  output_mirroring:
+    mirror_path: "../JobHunterKit/gdrive_mirror/"  # Mirror path for scrape results
+    file_format: "json"
+
+  # Local cognitive limits overrides
+  cognitive_limits:
+    default_token_budget: 150000        # Scraping requires high token loads; budget is increased to 150k
+    max_parallel_agents: 2             # Playwright browser scrapes must not exceed 2 concurrent agents to prevent IP blocks
